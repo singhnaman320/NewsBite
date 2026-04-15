@@ -120,7 +120,7 @@ export const AgentManager = ({
               }
               type="number"
               min={5}
-              className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm"
+              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm"
               placeholder="Fetch interval"
               required
             />
