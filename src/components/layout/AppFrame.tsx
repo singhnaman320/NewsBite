@@ -8,7 +8,12 @@ type AppFrameProps = PropsWithChildren<{
   actions?: ReactNode;
 }>;
 
-export const AppFrame = ({ title, subtitle, actions, children }: AppFrameProps) => {
+export const AppFrame = ({
+  title,
+  subtitle,
+  actions,
+  children,
+}: AppFrameProps) => {
   return (
     <SiteShell>
       <div className="space-y-8">
@@ -19,11 +24,17 @@ export const AppFrame = ({ title, subtitle, actions, children }: AppFrameProps) 
                 NewsBite
               </span>
               <div>
-                <h1 className="text-3xl font-semibold sm:text-5xl lg:text-6xl">{title}</h1>
-                <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600 sm:text-base">{subtitle}</p>
+                <h1 className="text-3xl font-semibold sm:text-5xl lg:text-6xl">
+                  {title}
+                </h1>
+                <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600 sm:text-base">
+                  {subtitle}
+                </p>
               </div>
             </div>
-            {actions ? <div className="flex flex-wrap items-center gap-3">{actions}</div> : null}
+            {actions ? (
+              <div className="flex flex-wrap items-center gap-3">{actions}</div>
+            ) : null}
           </div>
         </header>
         {children}

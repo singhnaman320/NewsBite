@@ -10,19 +10,33 @@ type AuthFormProps = {
   registerRoles: Role[];
   loginRoles: Role[];
   onModeChange: (mode: AuthMode) => void;
-  onSubmit: (payload: { name?: string; email: string; password: string; role?: Role }) => Promise<void>;
+  onSubmit: (payload: {
+    name?: string;
+    email: string;
+    password: string;
+    role?: Role;
+  }) => Promise<void>;
 };
 
 const roleLabel: Record<Role, string> = {
   admin: "Admin",
-  user: "Reader"
+  user: "Reader",
 };
 
-export const AuthForm = ({ mode, loading, registerRoles, loginRoles, onModeChange, onSubmit }: AuthFormProps) => {
+export const AuthForm = ({
+  mode,
+  loading,
+  registerRoles,
+  loginRoles,
+  onModeChange,
+  onSubmit,
+}: AuthFormProps) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [registerRole, setRegisterRole] = useState<Role>(registerRoles.includes("admin") ? "admin" : "user");
+  const [registerRole, setRegisterRole] = useState<Role>(
+    registerRoles.includes("admin") ? "admin" : "user",
+  );
   const [loginRole, setLoginRole] = useState<Role>("admin");
 
   useEffect(() => {
@@ -38,9 +52,17 @@ export const AuthForm = ({ mode, loading, registerRoles, loginRoles, onModeChang
   const heading = useMemo(
     () =>
       mode === "login"
-        ? { title: "Welcome back", button: "Sign in", switchLabel: "Create account" }
-        : { title: "Create your NewsBite account", button: "Register", switchLabel: "Have an account?" },
-    [mode]
+        ? {
+            title: "Welcome back",
+            button: "Sign in",
+            switchLabel: "Create account",
+          }
+        : {
+            title: "Create your NewsBite account",
+            button: "Register",
+            switchLabel: "Have an account?",
+          },
+    [mode],
   );
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -49,7 +71,7 @@ export const AuthForm = ({ mode, loading, registerRoles, loginRoles, onModeChang
       name: mode === "register" ? name : undefined,
       email,
       password,
-      role: mode === "register" ? registerRole : loginRole
+      role: mode === "register" ? registerRole : loginRole,
     });
   };
 
@@ -75,7 +97,8 @@ export const AuthForm = ({ mode, loading, registerRoles, loginRoles, onModeChang
       <div className="mb-6 space-y-2">
         <h2 className="text-3xl font-semibold">{heading.title}</h2>
         <p className="text-sm text-slate-500">
-          Register can create only one admin account in total. After that, new signups are restricted to readers.
+          Register can create only one admin account in total. After that, new
+          signups are restricted to readers.
         </p>
       </div>
 
@@ -113,7 +136,10 @@ export const AuthForm = ({ mode, loading, registerRoles, loginRoles, onModeChang
         </label>
 
         {mode === "register" && !registerRoles.includes("admin") ? (
-          <p className="rounded-2xl bg-amber-50 px-4 py-3 text-sm text-amber-800">An admin account already exists, so new registrations are reader-only.</p>
+          <p className="rounded-2xl bg-amber-50 px-4 py-3 text-sm text-amber-800">
+            An admin account already exists, so new registrations are
+            reader-only.
+          </p>
         ) : null}
 
         <label className="block space-y-2 text-sm font-medium text-slate-600">

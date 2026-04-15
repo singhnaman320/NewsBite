@@ -15,7 +15,9 @@ export const FeedTabs = ({ tabs, activeTab, onChange }: FeedTabsProps) => {
             type="button"
             onClick={() => onChange(tab)}
             className={`whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold ${
-              active ? "bg-ink text-white" : "bg-white text-slate-600 border border-slate-200"
+              active
+                ? "bg-ink text-white"
+                : "bg-white text-slate-600 border border-slate-200"
             }`}
           >
             {tab}

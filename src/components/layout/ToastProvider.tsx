@@ -1,4 +1,11 @@
-﻿import { createContext, PropsWithChildren, useCallback, useContext, useMemo, useState } from "react";
+﻿import {
+  createContext,
+  PropsWithChildren,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 
 type ToastTone = "success" | "error" | "info";
 
@@ -17,7 +24,7 @@ const ToastContext = createContext<ToastContextValue | null>(null);
 const toneStyles: Record<ToastTone, string> = {
   success: "border-emerald-200 bg-emerald-50 text-emerald-800",
   error: "border-rose-200 bg-rose-50 text-rose-800",
-  info: "border-slate-200 bg-white text-slate-700"
+  info: "border-slate-200 bg-white text-slate-700",
 };
 
 export const ToastProvider = ({ children }: PropsWithChildren) => {
@@ -33,7 +40,7 @@ export const ToastProvider = ({ children }: PropsWithChildren) => {
       setToasts((current) => [...current, { id, title, tone }]);
       window.setTimeout(() => removeToast(id), 3600);
     },
-    [removeToast]
+    [removeToast],
   );
 
   const value = useMemo(() => ({ showToast }), [showToast]);

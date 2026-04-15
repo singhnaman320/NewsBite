@@ -105,20 +105,26 @@ export const AgentManager = ({
             placeholder="Description"
             required
           />
-          <input
-            value={draft.fetchIntervalMinutes ?? 15}
-            onChange={(e) =>
-              setDraft((cur) => ({
-                ...cur,
-                fetchIntervalMinutes: Number(e.target.value),
-              }))
-            }
-            type="number"
-            min={5}
-            className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm"
-            placeholder="Fetch interval"
-            required
-          />
+          <div className="space-y-2">
+            <p className="text-sm text-slate-500">
+              Check this feed for new articles every few minutes. Example: 15
+              means the feed will be checked every 15 minutes.
+            </p>
+            <input
+              value={draft.fetchIntervalMinutes ?? 15}
+              onChange={(e) =>
+                setDraft((cur) => ({
+                  ...cur,
+                  fetchIntervalMinutes: Number(e.target.value),
+                }))
+              }
+              type="number"
+              min={5}
+              className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm"
+              placeholder="Fetch interval"
+              required
+            />
+          </div>
           <label className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-600">
             <input
               type="checkbox"

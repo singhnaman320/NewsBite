@@ -24,7 +24,9 @@ export const SiteShell = ({ headerSlot, children }: SiteShellProps) => {
             </div>
 
             <div className="flex items-center justify-between gap-3 text-sm text-slate-500 lg:justify-end">
-              <span className="hidden sm:inline">TypeScript MERN and Tailwind build</span>
+              <span className="hidden sm:inline">
+                TypeScript MERN and Tailwind build
+              </span>
               {headerSlot}
             </div>
           </div>
@@ -34,7 +36,10 @@ export const SiteShell = ({ headerSlot, children }: SiteShellProps) => {
 
         <footer className="glass-card rounded-[1.75rem] px-5 py-4 sm:px-6">
           <div className="flex flex-col gap-3 text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
-            <p>NewsBite dashboard and reader experience for the MERN full-stack assignment.</p>
+            <p>
+              NewsBite dashboard and reader experience for the MERN full-stack
+              assignment.
+            </p>
             <div className="flex flex-wrap items-center gap-4 text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">
               <span>JWT auth</span>
               <span>RSS agents</span>

@@ -10,7 +10,9 @@ import type { AuthResponse } from "./types";
 const fallbackTopics = ["General", "World", "Technology", "Business"];
 
 function AppContent() {
-  const [session, setSession] = useState<AuthResponse | null>(() => getStoredSession());
+  const [session, setSession] = useState<AuthResponse | null>(() =>
+    getStoredSession(),
+  );
   const [topics, setTopics] = useState<string[]>(fallbackTopics);
   const [booting, setBooting] = useState(Boolean(getStoredSession()));
 
@@ -27,13 +29,20 @@ function AppContent() {
       }
 
       try {
-        const [meResponse, categoryResponse] = await Promise.all([api.me(session.token), api.categories(session.token)]);
+        const [meResponse, categoryResponse] = await Promise.all([
+          api.me(session.token),
+          api.categories(session.token),
+        ]);
         const nextSession = {
           ...session,
-          user: meResponse.user
+          user: meResponse.user,
         };
         updateSession(nextSession);
-        setTopics(categoryResponse.categories.length > 0 ? categoryResponse.categories : fallbackTopics);
+        setTopics(
+          categoryResponse.categories.length > 0
+            ? categoryResponse.categories
+            : fallbackTopics,
+        );
       } catch {
         updateSession(null);
       } finally {
@@ -45,7 +54,11 @@ function AppContent() {
   }, [session?.token]);
 
   if (booting) {
-    return <div className="flex min-h-screen items-center justify-center text-sm font-medium text-slate-500">Loading NewsBite...</div>;
+    return (
+      <div className="flex min-h-screen items-center justify-center text-sm font-medium text-slate-500">
+        Loading NewsBite...
+      </div>
+    );
   }
 
   if (!session) {
@@ -53,10 +66,23 @@ function AppContent() {
   }
 
   if (session.user.role === "admin") {
-    return <AdminDashboard session={session} topics={topics} onLogout={() => updateSession(null)} />;
+    return (
+      <AdminDashboard
+        session={session}
+        topics={topics}
+        onLogout={() => updateSession(null)}
+      />
+    );
   }
 
-  return <UserPortal session={session} categories={topics} onSessionChange={updateSession} onLogout={() => updateSession(null)} />;
+  return (
+    <UserPortal
+      session={session}
+      categories={topics}
+      onSessionChange={updateSession}
+      onLogout={() => updateSession(null)}
+    />
+  );
 }
 
 function App() {

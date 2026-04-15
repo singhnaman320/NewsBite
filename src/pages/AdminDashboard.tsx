@@ -14,7 +14,11 @@ type AdminDashboardProps = {
   onLogout: () => void;
 };
 
-export const AdminDashboard = ({ session, topics, onLogout }: AdminDashboardProps) => {
+export const AdminDashboard = ({
+  session,
+  topics,
+  onLogout,
+}: AdminDashboardProps) => {
   const [agents, setAgents] = useState<Agent[]>([]);
   const [ads, setAds] = useState<AdCampaign[]>([]);
   const [analytics, setAnalytics] = useState<AnalyticsRow[]>([]);
@@ -24,19 +28,23 @@ export const AdminDashboard = ({ session, topics, onLogout }: AdminDashboardProp
   const loadDashboard = async (showLoadErrorToast = true) => {
     try {
       setLoading(true);
-      const [agentsResponse, adsResponse, analyticsResponse] = await Promise.all([
-        api.agents(session.token),
-        api.ads(session.token),
-        api.analytics(session.token)
-      ]);
+      const [agentsResponse, adsResponse, analyticsResponse] =
+        await Promise.all([
+          api.agents(session.token),
+          api.ads(session.token),
+          api.analytics(session.token),
+        ]);
       setAgents(agentsResponse.agents);
       setAds(adsResponse.ads);
       setAnalytics(analyticsResponse.analytics);
     } catch (loadError) {
       if (showLoadErrorToast) {
         showToast({
-          title: loadError instanceof Error ? loadError.message : "Failed to load dashboard data.",
-          tone: "error"
+          title:
+            loadError instanceof Error
+              ? loadError.message
+              : "Failed to load dashboard data.",
+          tone: "error",
         });
       }
     } finally {
@@ -48,15 +56,24 @@ export const AdminDashboard = ({ session, topics, onLogout }: AdminDashboardProp
     void loadDashboard(false);
   }, []);
 
-  const wrapAction = async (action: () => Promise<string | undefined>, fallbackSuccessMessage: string) => {
+  const wrapAction = async (
+    action: () => Promise<string | undefined>,
+    fallbackSuccessMessage: string,
+  ) => {
     try {
       const successMessage = await action();
-      showToast({ title: successMessage ?? fallbackSuccessMessage, tone: "success" });
+      showToast({
+        title: successMessage ?? fallbackSuccessMessage,
+        tone: "success",
+      });
       await loadDashboard(false);
     } catch (actionError) {
       showToast({
-        title: actionError instanceof Error ? actionError.message : "Something went wrong.",
-        tone: "error"
+        title:
+          actionError instanceof Error
+            ? actionError.message
+            : "Something went wrong.",
+        tone: "error",
       });
     }
   };
@@ -74,13 +91,21 @@ export const AdminDashboard = ({ session, topics, onLogout }: AdminDashboardProp
           >
             Refresh
           </button>
-          <button type="button" onClick={onLogout} className="rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white">
+          <button
+            type="button"
+            onClick={onLogout}
+            className="rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white"
+          >
             Logout
           </button>
         </>
       }
     >
-      {loading ? <div className="glass-card rounded-[2rem] p-8 text-sm text-slate-500">Loading dashboard...</div> : null}
+      {loading ? (
+        <div className="glass-card rounded-[2rem] p-8 text-sm text-slate-500">
+          Loading dashboard...
+        </div>
+      ) : null}
 
       <AgentManager
         agents={agents}
